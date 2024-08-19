@@ -19,7 +19,7 @@ export class Menu {
       items: [
         {
           icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Users',
+          label: 'Users CRUD',
           route: '/users',
         },
       ],

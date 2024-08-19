@@ -7,6 +7,7 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { LayoutModule } from './layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastNoAnimationModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardModule,
     LayoutModule,
     AngularSvgIconModule.forRoot(),
+    ToastNoAnimationModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

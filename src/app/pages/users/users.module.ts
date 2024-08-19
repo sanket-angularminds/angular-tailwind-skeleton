@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
-import { TableRowComponent } from './table-row/table-row.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { FormsModule } from '@angular/forms';
-import { TableHeaderComponent } from './table-header/table-header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
 
 @NgModule({
-  declarations: [UsersListComponent, TableRowComponent, TableHeaderComponent],
+  declarations: [UsersListComponent, AddUserModalComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularSvgIconModule,
   ],
 })

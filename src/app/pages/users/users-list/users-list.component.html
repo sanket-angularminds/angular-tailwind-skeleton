@@ -3,37 +3,75 @@
     <h3 class="font-semibold text-foreground">Team Members</h3>
     <div class="space-x-1 text-xs font-medium text-muted-foreground">
       <a href="" class="hover:text-primary">All Members:</a>
-      <span class="text-foreground">49,053</span>
+      <span class="text-foreground">{{ users.length }}</span>
     </div>
   </div>
   <div class="inline-block space-x-4">
-    <button class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground">
+    <button class="flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground"
+      (click)="openModal()">
       Add Member
     </button>
   </div>
 </div>
 
 <div class="flex min-w-full flex-col rounded-xl border border-muted/20 bg-background p-2">
-  <!-- <app-table-action></app-table-action> -->
   <div class="overflow-x-auto">
     <table
       class="table w-full table-auto border-collapse border-0 text-left align-middle leading-5 text-muted-foreground">
       <thead class="border border-muted/20 text-xs text-muted-foreground">
-        <tr>
-          <app-table-header (onCheck)="toggleUsers($event)"></app-table-header>
+        <tr class="p-3">
+          <th class="w-auto">Member</th>
+          <th class="w-auto">Username</th>
+          <th class="w-auto">Occupation</th>
+          <th class="w-auto">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="hover:bg-card/50" *ngFor="let user of users(); track $index; else noResultFound">
-          <app-table-row [user]="user"></app-table-row>
-        </tr>
-        <ng-template #noResultFound>
-          <tr>
-            <td class="py-4 text-center text-sm" colspan="7">No users found</td>
+        <ng-container *ngFor="let user of users; let i = index">
+
+          <tr class="hover:bg-card/50">
+            <td>
+              <div class="flex items-center gap-2.5">
+                <img alt="user avatar" class="h-9 w-9 shrink-0 rounded-full"
+                  src="https://avatar.iran.liara.run/public/boy?username={{ user.name }}" />
+                <div class="flex flex-col">
+                  <p class="text-sm font-semibold text-foreground hover:text-primary cursor-pointer">
+                    {{ user.name }}
+                  </p>
+                  <p class="text-xs font-medium text-muted-foreground/70 hover:text-primary cursor-pointer">
+                    {{ user.email }}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="w-auto">{{ user.username }}</td>
+            <td class="w-auto">
+              {{ user.occupation }}
+            </td>
+            <td class="text-center w-auto flex gap-3">
+              <button (click)="updateUser(user, i)"
+                class="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-foreground">
+                <svg-icon src="./assets/icons/heroicons/outline/pencil-square.svg" [svgClass]="'h-4 w-4'">
+                </svg-icon>
+              </button>
+              <button (click)="deleteUser(user._id)"
+                class="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground hover:bg-card hover:text-primary">
+                <svg-icon src="./assets/icons/heroicons/outline/trash.svg" [svgClass]="'h-4 w-4'">
+                </svg-icon>
+              </button>
+            </td>
           </tr>
-        </ng-template>
+
+        </ng-container>
+        <ng-container *ngIf="!users.length">
+          <tr>
+            <td class="py-4 text-center text-lg" colspan="7">No users found</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
-  <!-- <app-table-footer></app-table-footer> -->
 </div>
+
+<!-- Modal -->
+<app-add-user-modal *ngIf="isModalOpen" [isModalOpen]="isModalOpen" (close)="closeModal()"></app-add-user-modal>
